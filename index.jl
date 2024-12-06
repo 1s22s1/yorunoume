@@ -39,6 +39,10 @@ function place(name, x, y, life_grid)
         life_grid[x, y] = 1
         life_grid[x, y + 1] = 1
         life_grid[x, y + 2] = 1
+    elseif name == "tab"
+       for (i, j) ∈ [[0, 0], [-1, 1], [1, 1], [0, 2]]
+            life_grid[x + i, y + j] = 1
+       end
     end
 end
 
