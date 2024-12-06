@@ -1,9 +1,18 @@
 using Plots
 
 function main()
-    height, width = parseints()
-    file_name = parsestring()
-    life_grid = reduce(hcat, [parseints() for _ ∈ 1:height])
+    file_name = readline()
+    lines = readlines(file_name)
+    height, width = split(lines[begin]) |> x -> parse.(Int, x)
+    life_grid = zeros(Int, height, width)
+
+    for line in lines[2:end]
+        name, x, y = split(line)
+        x = parse(Int, x)
+        y = parse(Int, y)
+
+        place(name, x, y, life_grid)
+    end
 
     animation = @animate for i = 1:100
         heatmap(
@@ -11,13 +20,22 @@ function main()
             colorbar = false,
             ticks = false,
             axis = false,
-            fillcolor = cgrad(["#9BFCD3", "#900091"]),
+            fillcolor = cgrad(["#F5F5DC", "#DC143C"]),
         )
 
         life_grid = next(life_grid)
     end
 
     gif(animation, "$(file_name).gif", fps = 1000)
+end
+
+function place(name, x, y, life_grid)
+    if name == "block"
+        life_grid[x, y] = 1
+        life_grid[x, y + 1] = 1
+        life_grid[x + 1, y] = 1
+        life_grid[x + 1, y + 1]
+    end
 end
 
 function next(life_grid)
