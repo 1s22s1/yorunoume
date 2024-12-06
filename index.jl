@@ -31,18 +31,20 @@ end
 
 function place(name, x, y, life_grid)
     if name == "block"
-        life_grid[x, y] = 1
-        life_grid[x, y + 1] = 1
-        life_grid[x + 1, y] = 1
-        life_grid[x + 1, y + 1]
+        for (i, j) ∈ [[0, 0], [0, 1], [1, 0], [1, 1]]
+            life_grid[x+i, y+j] = 1
+        end
     elseif name == "blinker"
         life_grid[x, y] = 1
-        life_grid[x, y + 1] = 1
-        life_grid[x, y + 2] = 1
+        life_grid[x, y+1] = 1
+        life_grid[x, y+2] = 1
+        for (i, j) ∈ [[0, 0], [0, 1], [0, 2]]
+            life_grid[x+i, y+j] = 1
+        end
     elseif name == "tab"
-       for (i, j) ∈ [[0, 0], [-1, 1], [1, 1], [0, 2]]
-            life_grid[x + i, y + j] = 1
-       end
+        for (i, j) ∈ [[0, 0], [-1, 1], [1, 1], [0, 2]]
+            life_grid[x+i, y+j] = 1
+        end
     end
 end
 
