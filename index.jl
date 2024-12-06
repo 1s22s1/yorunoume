@@ -11,7 +11,7 @@ function main()
             colorbar = false,
             ticks = false,
             axis = false,
-            fillcolor = cgrad(:pink),
+            fillcolor = cgrad(["#9BFCD3", "#900091"]),
         )
 
         life_grid = next(life_grid)
