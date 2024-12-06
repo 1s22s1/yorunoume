@@ -1,10 +1,7 @@
 using Plots
 
-height = nothing
-width = nothing
-
 function main()
-    global height, width = parseints()
+    height, width = parseints()
     file_name = parsestring()
     life_grid = reduce(hcat, [parseints() for _ ∈ 1:height])
 
@@ -24,6 +21,9 @@ function main()
 end
 
 function next(life_grid)
+    height = size(life_grid, 1)
+    width = size(life_grid, 2)
+
     next_grid = zeros(Int, height, width)
 
     for i ∈ 1:height, j ∈ 1:width
