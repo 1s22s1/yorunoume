@@ -1,13 +1,12 @@
 using Plots
 
-life_grid = nothing
 height = nothing
 width = nothing
 
 function main()
     global height, width = parseints()
     file_name = parsestring()
-    global life_grid = reduce(hcat, [parseints() for _ ∈ 1:height])
+    life_grid = reduce(hcat, [parseints() for _ ∈ 1:height])
 
     animation = @animate for i = 1:100
         heatmap(
@@ -18,13 +17,13 @@ function main()
             fillcolor = cgrad(:pink),
         )
 
-        life_grid = next()
+        life_grid = next(life_grid)
     end
 
     gif(animation, "$(file_name).gif", fps = 1000)
 end
 
-function next()
+function next(life_grid)
     next_grid = zeros(Int, height, width)
 
     for i ∈ 1:height, j ∈ 1:width
