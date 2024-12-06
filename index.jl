@@ -1,12 +1,18 @@
 using Plots
 
+const OBJECT = Dict(
+    "block" => [[0, 0], [0, 1], [1, 0], [1, 1]],
+    "blinker" => [[0, 0], [0, 1], [0, 2]],
+    "tab" => [[0, 0], [-1, 1], [1, 1], [0, 2]],
+)
+
 function main()
     file_name = readline()
     lines = readlines(file_name)
     height, width = split(lines[begin]) |> x -> parse.(Int, x)
     life_grid = zeros(Int, height, width)
 
-    for line in lines[2:end]
+    for line ∈ lines[2:end]
         name, x, y = split(line)
         x = parse(Int, x)
         y = parse(Int, y)
@@ -30,21 +36,8 @@ function main()
 end
 
 function place(name, x, y, life_grid)
-    if name == "block"
-        for (i, j) ∈ [[0, 0], [0, 1], [1, 0], [1, 1]]
-            life_grid[x+i, y+j] = 1
-        end
-    elseif name == "blinker"
-        life_grid[x, y] = 1
-        life_grid[x, y+1] = 1
-        life_grid[x, y+2] = 1
-        for (i, j) ∈ [[0, 0], [0, 1], [0, 2]]
-            life_grid[x+i, y+j] = 1
-        end
-    elseif name == "tab"
-        for (i, j) ∈ [[0, 0], [-1, 1], [1, 1], [0, 2]]
-            life_grid[x+i, y+j] = 1
-        end
+    for (i, j) ∈ OBJECT[name]
+        life_grid[x+i, y+j] = 1
     end
 end
 
