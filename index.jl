@@ -35,6 +35,10 @@ function place(name, x, y, life_grid)
         life_grid[x, y + 1] = 1
         life_grid[x + 1, y] = 1
         life_grid[x + 1, y + 1]
+    elseif name == "blinker"
+        life_grid[x, y] = 1
+        life_grid[x, y + 1] = 1
+        life_grid[x, y + 2] = 1
     end
 end
 
