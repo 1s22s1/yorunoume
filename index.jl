@@ -1,10 +1,13 @@
 using Plots
 
 const OBJECT = Dict(
-    "block" => [[0, 0], [0, 1], [1, 0], [1, 1]],
+    "arcon" => [[0, 0], [-2, 1], [0, 1], [-1, 3], [0, 4], [0, 5], [0, 6]],
+    "beacon" => [[0, 0], [1, 0], [0, 1], [1, 1], [-2, 2], [-1, 2], [-2, 3], [-1, 3]],
     "blinker" => [[0, 0], [0, 1], [0, 2]],
+    "block" => [[0, 0], [0, 1], [1, 0], [1, 1]],
+    "glider" => [[0, 0], [-2, 1], [0, 1], [-1, 2], [0, 2]],
+    "pentomino" => [[0, 0], [-1, 1], [0, 1], [1, 1], [-1, 2]],
     "tab" => [[0, 0], [-1, 1], [1, 1], [0, 2]],
-    "beacon" => [[0, 0], [1, 0], [0, 1], [1, 1], [-2, 2], [-1, 2], [-2, 3], [-1, 3]]
 )
 
 function main()
@@ -21,19 +24,19 @@ function main()
         place(name, x, y, life_grid)
     end
 
-    animation = @animate for i = 1:100
+    animation = @animate for _ = 1:200
         heatmap(
             life_grid,
             colorbar = false,
             ticks = false,
             axis = false,
-            fillcolor = cgrad(["#F5F5DC", "#DC143C"]),
+            fillcolor = cgrad(["#e7c7b3", "#12364d"]),
         )
 
         life_grid = next(life_grid)
     end
 
-    gif(animation, "$(file_name).gif", fps = 1000)
+    gif(animation, "$(file_name).gif", fps = 1200)
 end
 
 function place(name, x, y, life_grid)
